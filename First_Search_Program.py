@@ -32,8 +32,26 @@ delta = [[-1, 0], # go up
 delta_name = ['^', '<', 'v', '>']
 
 def search(grid,init,goal,cost):
-    # ----------------------------------------
-    # insert code here
-    # ----------------------------------------
+    path = 1        # remove once finished
+    # create a list of the current position. First element is the g-number, the next two are the coordinates
+    current_pos = [0]
+    current_pos[1:2] = init
+
+    # initiate loop (while-loop?)
+    # check if current position is the final result
+
+    # check neighbors (expand the one with the smallest g-value)
+    # some don't need to be considered anymore as these are already checked... (create a new grid, same size as the maze
+    # to keep track of the checked positions!)
+
+    # remove the nodes that have no un-checked neighbors
+
+    # recurse the loop
+
+
+    print current_pos
+
 
     return path
+
+p = search(grid, init, goal, cost)
