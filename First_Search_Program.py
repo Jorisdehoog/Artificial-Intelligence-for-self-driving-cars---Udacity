@@ -40,11 +40,11 @@ def search(grid,init,goal,cost):
     # initiate loop (while-loop?)
     # check if current position is the final result
     goal_reached = 0    # identifier of success
-    steps = 0           # number of steps needed (current_pos[0])
+    g_val = 0           # number of steps needed (current_pos[0])
     position = init     # position (current_pos[1:2])
 
     # print grid[position[0]][position[1]]
-    print [1, current_pos[steps][1], current_pos[steps][2]]
+    print [1, current_pos[g_val][1], current_pos[g_val][2]]
 
     print len(current_pos)
 
@@ -55,13 +55,16 @@ def search(grid,init,goal,cost):
 
     while goal_reached == 0:
         # look for other positions.
-        grid[current_pos[steps][1]][current_pos[steps][2]] = 1
+        grid[current_pos[g_val][1]][current_pos[g_val][2]] = 1
         last_length = len(current_pos)      # so we dont change the length of the inner loop during operation
 
         # if [current_pos[steps][1], current_pos[steps][2]] == goal:
         #     goal_reached = 1
         # else:
         #     current_pos.pop(steps)
+
+        # len(input) = amount of rows
+        # len(input[0]) = amount of columns
 
         for i in range(len(delta)):
             for ii in range(last_length):
@@ -71,9 +74,10 @@ def search(grid,init,goal,cost):
                     # do nothing
                     print ""
                 else:
-                    current_pos.append([steps, newstep[0], newstep[1]])
+                    # only expand when step is possible (thats the case atm)
+                    current_pos.append([g_val, newstep[0], newstep[1]])
                     grid[newstep[0]][newstep[1]] = 1
-        steps += 1
+        g_val += 1
 
 
 
