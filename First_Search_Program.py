@@ -34,50 +34,77 @@ delta_name = ['^', '<', 'v', '>']
 def search(grid,init,goal,cost):
     path = 1        # remove once finished
     # create a list of the current position. First element is the g-number, the next two are the coordinates
-    current_pos = [[0, init[0], init[1]]]   # initialize the G-value
-    # current_pos[1:2] = init
+    g_val = 0  # number of steps needed (current_pos[0])
+    initial_list = [[g_val, init[0], init[1]]]   # initialize the G-value
+    # initial_list.append([9, 0, 1])
+    goal_reached = 0  # identifier of success
 
-    # initiate loop (while-loop?)
-    # check if current position is the final result
-    goal_reached = 0    # identifier of success
-    g_val = 0           # number of steps needed (current_pos[0])
+    print initial_list
+
     position = init     # position (current_pos[1:2])
 
     # print grid[position[0]][position[1]]
-    print [1, current_pos[g_val][1], current_pos[g_val][2]]
+    print [1, initial_list[g_val][1], initial_list[g_val][2]]
 
-    print len(current_pos)
+    # test of grid
+    print [tuple(x[0] for x in grid)]
+
+    # store list of g-values in pp
+    pp = []
+    for i in range(len(initial_list)):
+        pp.append(initial_list[i][0])
+
+    # find index of smallest pp
+    ppidx = pp.index(min(pp))
+    print ppidx
+    # take the list item
+
+    # retreive element with lowest g-value (and check if goal is reached!
+    list_item = initial_list[ppidx]
+    print list_item
+
+    # expand the list item into new open list
+    new_list = list()
+    for ii in range(len(delta)):
+        newstep = [a + b for a, b in zip([list_item[1], list_item[2]], delta[ii])]
+        print newstep
+        print sum(n < 0 for n in newstep)
+        if sum(n < 0 for n in newstep) == 0 and grid[newstep[0]][newstep[1]] != 1:
+            new_list.append([g_val, newstep[0], newstep[1]])
+
+
+
 
     # grid2 = list(grid)
     # grid2.pop(0)
     #
     # print grid2
 
-    while goal_reached == 0:
-        # look for other positions.
-        grid[current_pos[g_val][1]][current_pos[g_val][2]] = 1
-        last_length = len(current_pos)      # so we dont change the length of the inner loop during operation
-
-        # if [current_pos[steps][1], current_pos[steps][2]] == goal:
-        #     goal_reached = 1
-        # else:
-        #     current_pos.pop(steps)
-
-        # len(input) = amount of rows
-        # len(input[0]) = amount of columns
-
-        for i in range(len(delta)):
-            for ii in range(last_length):
-                newstep = [a + b for a, b in zip([current_pos[ii][1], current_pos[ii][2]], delta[i])]
-                print newstep
-                if sum(n < 0 for n in newstep) > 0 or grid[newstep[0]][newstep[1]] == 1:
-                    # do nothing
-                    print ""
-                else:
-                    # only expand when step is possible (thats the case atm)
-                    current_pos.append([g_val, newstep[0], newstep[1]])
-                    grid[newstep[0]][newstep[1]] = 1
-        g_val += 1
+    # while goal_reached == 0:
+    #     # look for other positions.
+    #     grid[current_pos[g_val][1]][current_pos[g_val][2]] = 1
+    #     last_length = len(current_pos)      # so we dont change the length of the inner loop during operation
+    #
+    #     # if [current_pos[steps][1], current_pos[steps][2]] == goal:
+    #     #     goal_reached = 1
+    #     # else:
+    #     #     current_pos.pop(steps)
+    #
+    #     # len(input) = amount of rows
+    #     # len(input[0]) = amount of columns
+    #
+    #     for i in range(len(delta)):
+    #         for ii in range(last_length):
+    #             newstep = [a + b for a, b in zip([current_pos[ii][1], current_pos[ii][2]], delta[i])]
+    #             print newstep
+    #             if sum(n < 0 for n in newstep) > 0 or grid[newstep[0]][newstep[1]] == 1:
+    #                 # do nothing
+    #                 print ""
+    #             else:
+    #                 # only expand when step is possible (thats the case atm)
+    #                 current_pos.append([g_val, newstep[0], newstep[1]])
+    #                 grid[newstep[0]][newstep[1]] = 1
+    #     g_val += 1
 
 
 
