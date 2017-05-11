@@ -39,41 +39,52 @@ def search(grid,init,goal,cost):
     # initial_list.append([9, 0, 1])
     goal_reached = 0  # identifier of success
 
-    print initial_list
+    # print initial_list
 
     position = init     # position (current_pos[1:2])
 
     # print grid[position[0]][position[1]]
-    print [1, initial_list[g_val][1], initial_list[g_val][2]]
+    # print [1, initial_list[g_val][1], initial_list[g_val][2]]
 
     # test of grid
-    print [tuple(x[0] for x in grid)]
+    # print [tuple(x[0] for x in grid)]
 
-    # store list of g-values in pp
-    pp = []
-    for i in range(len(initial_list)):
-        pp.append(initial_list[i][0])
+    while goal_reached != 1:
+        # store list of g-values in pp
+        g_val += 1
+        pp = []
+        for i in range(len(initial_list)):
+            pp.append(initial_list[i][0])
 
-    # find index of smallest pp
-    ppidx = pp.index(min(pp))
-    print ppidx
-    # take the list item
+        # find index of smallest pp
+        ppidx = pp.index(min(pp))
+        # print ppidx
+        # take the list item
 
-    # retreive element with lowest g-value (and check if goal is reached!
-    list_item = initial_list[ppidx]
-    print list_item
+        # retreive element with lowest g-value (and check if goal is reached!)
+        # also change check-mark on grid
+        # remove this from the initial_list
+        list_item = initial_list[ppidx]
+        initial_list.pop(ppidx)
+        if [list_item[1], list_item[2]] == goal:
+            goal_reached = 1
 
-    # expand the list item into new open list
-    new_list = list()
-    for ii in range(len(delta)):
-        newstep = [a + b for a, b in zip([list_item[1], list_item[2]], delta[ii])]
-        print newstep
-        print sum(n < 0 for n in newstep)
-        if sum(n < 0 for n in newstep) == 0 and grid[newstep[0]][newstep[1]] != 1:
-            new_list.append([g_val, newstep[0], newstep[1]])
+        grid[list_item[1]][list_item[2]] = 1
+        # print list_item
 
+        # expand the list item into new open list
+        new_list = list()
+        for ii in range(len(delta)):
+            newstep = [a + b for a, b in zip([list_item[1], list_item[2]], delta[ii])]
+            # print newstep
+            # print sum(n < 0 for n in newstep)
+            if sum(n < 0 for n in newstep) == 0 and grid[newstep[0]][newstep[1]] != 1:
+                new_list.append([g_val, newstep[0], newstep[1]])
+                # mark grid!
+                grid[newstep[0]][newstep[1]] = 1
 
-
+        print new_list
+        initial_list.append(new_list)
 
     # grid2 = list(grid)
     # grid2.pop(0)
