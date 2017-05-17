@@ -31,8 +31,12 @@ def search(grid, init, goal, cost):
     # ----------------------------------------
     # modify code below
     # ----------------------------------------
+    steps = 0
     closed = [[0 for row in range(len(grid[0]))] for col in range(len(grid))]
     closed[init[0]][init[1]] = 1
+
+    expand = [[-1 for row in range(len(grid[0]))] for col in range(len(grid))]
+    expand[init[0]][init[1]] = steps
 
     x = init[0]
     y = init[1]
@@ -62,10 +66,14 @@ def search(grid, init, goal, cost):
                     y2 = y + delta[i][1]
                     if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]):
                         if closed[x2][y2] == 0 and grid[x2][y2] == 0:
+                            steps += 1
                             g2 = g + cost
                             open.append([g2, x2, y2])
                             closed[x2][y2] = 1
+                            expand[x2][y2] = steps
     return expand
 
 
-print search(grid, init, goal, cost)
+p = search(grid, init, goal, cost)
+for row in p:
+    print row
