@@ -70,7 +70,7 @@ def search(grid, init, goal, cost):
                             g2 = g + cost
                             open.append([g2, x2, y2])
                             closed[x2][y2] = 1
-                            expand[x2][y2] = steps
+                            expand[x2][y2] = g2
     return expand
 
 
