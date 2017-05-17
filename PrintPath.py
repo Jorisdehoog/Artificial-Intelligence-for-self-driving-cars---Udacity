@@ -83,8 +83,8 @@ def search(grid, init, goal, cost):
                             closed[x2][y2] = 1
                             pathing[x2][y2] = g2
 
-    for row in pathing:
-        print row
+    # for row in pathing:
+    #     print row
 
     # find shortest path by counting back from last g_val to 0 in the matrix pathing
     # we know that the end point is at x and y
@@ -93,7 +93,7 @@ def search(grid, init, goal, cost):
     prev_x = x
     prev_y = y
     # print [g, x, y]
-    print len(pathing[0])
+    # print len(pathing[0])
     flagstop = False
     while flagstop is False:
         if prev_x == 0 and prev_y == 0:
@@ -106,12 +106,12 @@ def search(grid, init, goal, cost):
 
                     if (ii - prev_y) == 0 and abs(i - prev_x) == 1:
                         # vertical  movement (either delta[1] or delta[3])
-                        print (2 + (i-prev_x))
+                        # print (2 + (i-prev_x))
                         expand[i][ii] = delta_name[(1 - (i - prev_x))]
                         prev_x = i
                         prev_g -= 1
                     if (i - prev_x) == 0 and abs(ii - prev_y) == 1:
-                        print (2 + (i - prev_y))
+                        # print (2 + (i - prev_y))
                         expand[i][ii] = delta_name[(2 - (ii - prev_y))]
                         prev_y = ii
                         prev_g -= 1
