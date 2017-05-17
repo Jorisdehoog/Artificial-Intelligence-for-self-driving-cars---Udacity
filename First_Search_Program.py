@@ -16,7 +16,7 @@
 #   1 = Occupied space
 
 grid = [[0, 1, 0, 1, 0, 0],
-        [0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 1, 1, 0],
         [0, 1, 0, 1, 1, 0],
         [0, 0, 0, 1, 1, 0]]
@@ -102,14 +102,14 @@ def search(grid,init,goal,cost):
             # print sum(n < 0 for n in newstep)
             # grid[5][0] is out of bounds, check!
             if newstep[0] < len(grid) and newstep[1] < len(grid[0]) and sum(n < 0 for n in newstep) == 0 and grid[newstep[0]][newstep[1]] != 1 :
-                new_list.append([temp_g_val + 1, newstep[0], newstep[1]])
+                new_list.append([temp_g_val + cost, newstep[0], newstep[1]])
                 # mark grid!
                 grid[newstep[0]][newstep[1]] = 1
             else:
                 newstep = None
 
         if len(new_list) != 0:
-            g_val += 1
+            g_val += cost
 
         # determine if we can do another step, if not: FAIL
         if len(new_list) == 0 and len(initial_list) == 0:
