@@ -15,11 +15,11 @@
 #   0 = Navigable space
 #   1 = Occupied space
 
-grid = [[0, 0, 1, 0, 0, 0],
-        [0, 0, 1, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0],
-        [0, 0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 1, 0]]
+grid = [[0, 1, 0, 1, 0, 0],
+        [0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0],
+        [0, 1, 0, 1, 1, 0],
+        [0, 0, 0, 1, 1, 0]]
 init = [0, 0]
 goal = [len(grid)-1, len(grid[0])-1]
 cost = 1
@@ -34,9 +34,9 @@ delta = [[-1, 0], # go up
 delta_name = ['^', '<', 'v', '>']
 
 def search(grid,init,goal,cost):
-    path = 1        # remove once finished
+    # path = 0        # remove once finished
     # create a list of the current position. First element is the g-number, the next two are the coordinates
-    g_val = 1  # number of steps needed (current_pos[0])
+    g_val = 0  # number of steps needed (current_pos[0])
     initial_list = [[g_val, init[0], init[1]]]   # initialize the G-value
     # initial_list.append([9, 0, 1])
     goal_reached = 0  # identifier of success
@@ -51,12 +51,12 @@ def search(grid,init,goal,cost):
     # test of grid
     # print [tuple(x[0] for x in grid)]
 
-    print "Initial open list"
-    for s in initial_list:
-        print s
-    print "--------"
+    # print "Initial open list"
+    # for s in initial_list:
+    #     print s
+    # print "--------"
 
-    while goal_reached != 1 and g_val < len(grid)*len(grid[0]):
+    while goal_reached != 1:
         # store list of g-values in pp
         pp = []
         for i in range(len(initial_list)):
@@ -72,19 +72,21 @@ def search(grid,init,goal,cost):
         # remove this from the initial_list
         list_item = initial_list[ppidx]
 
-        print "Take list item"
-        print list_item
-        print "--------"
+        # print "Take list item"
+        # print list_item
+        # print "--------"
 
         initial_list.pop(ppidx)
-        print "New open list"
-        for s in initial_list:
-            print s
-        print "--------"
 
         if [list_item[1], list_item[2]] == goal:
             path = list_item
+            # print "Success"
             goal_reached = 1
+            break
+
+        # if len(list_item) == 0 and len(initial_list) == 0:
+        #     print "fail"
+        #     break
 
         grid[list_item[1]][list_item[2]] = 1
         # print list_item
@@ -96,12 +98,13 @@ def search(grid,init,goal,cost):
         #     # print len([pp for pp in grid[0]])
 
         for ii in range(len(delta)):
+            temp_g_val = list_item[0]
             newstep = [a + b for a, b in zip([list_item[1], list_item[2]], delta[ii])]
             # print newstep
             # print sum(n < 0 for n in newstep)
             # grid[5][0] is out of bounds, check!
             if newstep[0] < len(grid) and newstep[1] < len(grid[0]) and sum(n < 0 for n in newstep) == 0 and grid[newstep[0]][newstep[1]] != 1 :
-                new_list.append([g_val, newstep[0], newstep[1]])
+                new_list.append([temp_g_val + 1, newstep[0], newstep[1]])
                 # mark grid!
                 grid[newstep[0]][newstep[1]] = 1
             else:
@@ -110,11 +113,20 @@ def search(grid,init,goal,cost):
         if len(new_list) != 0:
             g_val += 1
 
+        # determine if we can do another step, if not: FAIL
+        if len(new_list) == 0 and len(initial_list) == 0:
+            # path = []
+            path = "fail"
+            break
+
         for iii in range(len(new_list)):
             initial_list.append(new_list[iii])
 
         # print initial_list
-
+        # print "New open list"
+        # for s in initial_list:
+        #     print s
+        # print "--------"
     # grid2 = list(grid)
     # grid2.pop(0)
     #
