@@ -15,8 +15,8 @@
 
 grid = [[0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
+        [0, 1, 0, 0, 1, 0],
+        [0, 1, 0, 0, 1, 0],
         [0, 0, 0, 0, 1, 0]]
 heuristic = [[9, 8, 7, 6, 5, 4],
              [8, 7, 6, 5, 4, 3],
@@ -79,8 +79,8 @@ def search(grid,init,goal,cost,heuristic):
                     if x2 >= 0 and x2 < len(grid) and y2 >=0 and y2 < len(grid[0]):
                         if closed[x2][y2] == 0 and grid[x2][y2] == 0:
                             g2 = g + cost
-                            h2 = heuristic[x2][y2] + g2
-                            open.append([h2, g2, x2, y2])
+                            f2 = heuristic[x2][y2] + g2
+                            open.append([f2, g2, x2, y2])
                             closed[x2][y2] = 1
 
     return expand
