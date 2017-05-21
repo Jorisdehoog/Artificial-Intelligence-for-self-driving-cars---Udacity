@@ -13,10 +13,11 @@
 # previous video. The goal cell should have '*'.
 # ----------
 
-grid = [[0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
+grid = [[0, 0, 1, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 1, 0],
+        [0, 0, 1, 1, 1, 0],
         [0, 0, 0, 0, 1, 0]]
 init = [0, 0]
 goal = [len(grid)-1, len(grid[0])-1]
@@ -61,7 +62,9 @@ def optimum_policy(grid,goal,cost):
                             if v2 < value[x][y]:
                                 change = True
                                 value[x][y] = v2
-                                policy[x2][y2] = delta_name[a]
+                                policy[x][y] = delta_name[a]
+                            # else:
+                            #     policy[x2][y2] = delta_name[a]
 
     return policy
 
