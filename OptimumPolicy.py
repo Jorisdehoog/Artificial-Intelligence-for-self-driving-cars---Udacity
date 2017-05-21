@@ -36,12 +36,15 @@ def optimum_policy(grid,goal,cost):
     value = [[99 for row in range(len(grid[0]))] for col in range(len(grid))]
     change = True
 
+    policy = [[' ' for row in range(len(grid[0]))] for col in range(len(grid))]
+
     while change:
         change = False
 
         for x in range(len(grid)):
             for y in range(len(grid[0])):
                 if goal[0] == x and goal[1] == y:
+                    policy[x][y] = '*'
                     if value[x][y] > 0:
                         value[x][y] = 0
 
@@ -58,5 +61,10 @@ def optimum_policy(grid,goal,cost):
                             if v2 < value[x][y]:
                                 change = True
                                 value[x][y] = v2
+                                policy[x2][y2] = delta_name[a]
 
     return policy
+
+pp = optimum_policy(grid, goal, cost)
+for row in pp:
+    print row
