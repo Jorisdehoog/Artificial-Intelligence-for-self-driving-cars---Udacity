@@ -43,6 +43,10 @@ goal = [2, 0]  # given in the form [row,col]
 
 cost = [2, 1, 20]  # cost has 3 values, corresponding to making
 
+value = [[[999 for row in range(len(grid[0]))] for col in range(len(grid))],
+        [[999 for row in range(len(grid[0]))] for col in range(len(grid))],
+        [[999 for row in range(len(grid[0]))] for col in range(len(grid))],
+        [[999 for row in range(len(grid[0]))] for col in range(len(grid))]]
 
 # a right turn, no turn, and a left turn
 
@@ -60,4 +64,12 @@ cost = [2, 1, 20]  # cost has 3 values, corresponding to making
 # ----------------------------------------
 
 def optimum_policy2D(grid, init, goal, cost):
+    policy2D = [[' ' for row in range(len(grid[0]))] for col in range(len(grid))]
+
+
+
     return policy2D
+
+pp = optimum_policy2D(grid, init, goal, cost)
+for row in pp:
+    print row
