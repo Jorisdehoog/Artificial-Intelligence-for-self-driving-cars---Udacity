@@ -41,14 +41,18 @@ init = [4, 3, 0]  # given in the form [row,col,direction]
 
 goal = [2, 0]  # given in the form [row,col]
 
-cost = [2, 1, 20]  # cost has 3 values, corresponding to making
+cost = [2, 1, 20] # cost has 3 values, corresponding to making
+                  # a right turn, no turn, and a left turn
 
+# The value function contains a dimension for each possible orientation
+# state space is read like this: value[x][y][o] = value function for reaching the goal
+# when the car is at position x, y and orientation o
+# we need this orientation because actions have distinct costs
 value = [[[999 for row in range(len(grid[0]))] for col in range(len(grid))],
         [[999 for row in range(len(grid[0]))] for col in range(len(grid))],
         [[999 for row in range(len(grid[0]))] for col in range(len(grid))],
         [[999 for row in range(len(grid[0]))] for col in range(len(grid))]]
 
-# a right turn, no turn, and a left turn
 
 # EXAMPLE OUTPUT:
 # calling optimum_policy2D with the given parameters should return
@@ -65,6 +69,7 @@ value = [[[999 for row in range(len(grid[0]))] for col in range(len(grid))],
 
 def optimum_policy2D(grid, init, goal, cost):
     policy2D = [[' ' for row in range(len(grid[0]))] for col in range(len(grid))]
+
 
 
 
