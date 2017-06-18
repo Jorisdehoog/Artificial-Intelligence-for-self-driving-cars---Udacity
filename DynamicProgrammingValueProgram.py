@@ -13,7 +13,7 @@ grid = [[0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
-        [0, 0, 0, 0, 1, 0]]
+        [0, 1, 0, 0, 1, 0]]
 goal = [len(grid) - 1, len(grid[0]) - 1]
 cost = 1  # the cost associated with moving from a cell to an adjacent one
 
@@ -63,7 +63,7 @@ def compute_value(grid, goal, cost):
             y2 = y + delta[i][1]
             if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]):
                 if value[x2][y2] == 99 and grid[x2][y2] != 1:
-                    v2 = v + 1
+                    v2 = v + cost
                     value[x2][y2] = v2
                     open.append([v2, x2, y2])
 
